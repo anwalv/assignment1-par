@@ -29,11 +29,18 @@ void writeToFile(char *text) {
     fprintf(out_file, "%s", text);
     fclose(out_file);
     printf("The data was successfully written to the file.");
-}void  loadFromFile(){
+}
+void loadFromFile() {
     FILE *in_file = fopen("C:\\Users\\User\\CLionProjects\\untitled\\my_text.txt", "r");
+    if (in_file == NULL) {
+        printf("Error! Could not open file.\n");
+        return;
+    }
     char myText[1000];
-    fgets(myText, 1000, in_file);
-    printf("Text fom file: %s",myText);
+    while (fgets(myText, sizeof(myText), in_file) != NULL) {
+        printf("%s", myText);
+    }
+
     fclose(in_file);
 }
 void printText(char *text){
@@ -82,6 +89,27 @@ void insertText(char **text, int *arraySize) {
     memmove(*text + position + inputLength, *text + position, currentSize - position + 1);
     strncpy(*text + position, userInput, inputLength);
 }
+void searchSubstring(const char *filename) {
+    char substring[1000];
+    printf("Enter the substring to search for:");
+    scanf("%s", substring);
+
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error! Could not open file %s\n", filename);
+        return;
+    }
+    char line[1000];
+    int lineNumber = 1;
+    while (fgets(line, sizeof(line), file)) {
+        char *ptr = line;
+        while ((ptr = strstr(ptr, substring)) != NULL) {
+            printf("Substring found at position %ld\n", ptr - line);
+            ptr++;
+        }
+    }
+    fclose(file);
+}
 
 
 int main() {
@@ -121,6 +149,9 @@ int main() {
         }
         if(command==6){
             insertText(&text,&arraySize);
+        }
+        if (command == 7) {
+            searchSubstring("C:\\Users\\User\\CLionProjects\\untitled\\my_text.txt");
         }
     }
     printf("Ciao!!!");
