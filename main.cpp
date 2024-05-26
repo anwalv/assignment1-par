@@ -17,6 +17,10 @@ void appendText(char *text, int arraySize) {
     printf("Text was added successfully");
 }
 
+void startNewLine(char *text){
+    strcat(text, "\n");
+}
+
 
 
 int main() {
@@ -41,6 +45,9 @@ int main() {
         }
         if (command == 1){
             appendText(text, arraySize);
+        }
+        if(command == 2){
+            startNewLine(text);
         }
     }
     printf("Ciao!");
