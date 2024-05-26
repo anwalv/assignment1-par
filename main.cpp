@@ -39,7 +39,49 @@ void writeToFile(char *text) {
 void printText(char *text){
     printf("Your text: %s", text);
 }
+void insertText(char **text, int *arraySize) {
+    int lineNumber;
+    int position;
+    char userInput[1000];
 
+    printf("Enter the line number: ");
+    scanf("%d", &lineNumber);
+    getchar();
+
+    printf("\nEnter position number: ");
+    scanf("%d", &position);
+    getchar();
+
+    printf("Please, enter text to insert:\n");
+    scanf("%999[^\n]", userInput);
+    getchar();
+
+    int inputLength = strlen(userInput);
+    int currentSize = strlen(*text);
+
+    if (currentSize + inputLength >= *arraySize) {
+        *arraySize = currentSize + inputLength + 2;
+        *text = (char *)realloc(*text, *arraySize * sizeof(char));
+        if (*text == NULL) {
+            printf("Memory reallocation failed.\n");
+            return;
+        }
+    }
+
+    int currentLine = 1;
+    int currentPosition = 0;
+    char *ptr = *text;
+    while (currentLine < lineNumber) {
+        if (*ptr == '\n') {
+            currentLine++;
+        }
+        ptr++;
+        currentPosition++;
+    }
+    position += currentPosition;
+    memmove(*text + position + inputLength, *text + position, currentSize - position + 1);
+    strncpy(*text + position, userInput, inputLength);
+}
 
 
 int main() {
@@ -76,6 +118,9 @@ int main() {
         }
         if (command == 5){
             printText(text);
+        }
+        if(command==6){
+            insertText(&text,&arraySize);
         }
     }
     printf("Ciao!!!");
