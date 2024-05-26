@@ -20,6 +20,25 @@ void appendText(char *text, int arraySize) {
 void startNewLine(char *text){
     strcat(text, "\n");
 }
+void writeToFile(char *text) {
+    FILE *out_file = fopen("C:\\Users\\User\\CLionProjects\\untitled\\my_text.txt", "w");
+    if (out_file == NULL) {
+        printf("Error! Could not open file\n");
+        exit(1);
+    }
+    fprintf(out_file, "%s", text);
+    fclose(out_file);
+    printf("The data was successfully written to the file.");
+}void  loadFromFile(){
+    FILE *in_file = fopen("C:\\Users\\User\\CLionProjects\\untitled\\my_text.txt", "r");
+    char myText[1000];
+    fgets(myText, 1000, in_file);
+    printf("Text fom file: %s",myText);
+    fclose(in_file);
+}
+void printText(char *text){
+    printf("Your text: %s", text);
+}
 
 
 
@@ -48,6 +67,15 @@ int main() {
         }
         if(command == 2){
             startNewLine(text);
+        }
+        if(command==3){
+            writeToFile(text);
+        }
+        if(command == 4){
+            loadFromFile();
+        }
+        if (command == 5){
+            printText(text);
         }
     }
     printf("Ciao!");
