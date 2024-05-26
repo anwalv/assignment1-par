@@ -78,7 +78,7 @@ int main() {
             printText(text);
         }
     }
-    printf("Ciao!");
+    printf("Ciao!!!");
     free(text);
     return 0;
 }
