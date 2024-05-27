@@ -19,6 +19,7 @@ void appendText(char *text, int arraySize) {
 
 void startNewLine(char *text){
     strcat(text, "\n");
+    printf("A new line has started!\n");
 }
 void writeToFile(char *text) {
     FILE *out_file = fopen("C:\\Users\\User\\CLionProjects\\untitled\\my_text.txt", "w");
@@ -51,11 +52,11 @@ void insertText(char **text, int *arraySize) {
     int position;
     char userInput[1000];
 
-    printf("Enter the line number: ");
+    printf("Enter the line number:");
     scanf("%d", &lineNumber);
     getchar();
 
-    printf("\nEnter position number: ");
+    printf("\nEnter position number:");
     scanf("%d", &position);
     getchar();
 
@@ -88,6 +89,7 @@ void insertText(char **text, int *arraySize) {
     position += currentPosition;
     memmove(*text + position + inputLength, *text + position, currentSize - position + 1);
     strncpy(*text + position, userInput, inputLength);
+    printf("Text was added successfully!");
 }
 void searchSubstring(const char *filename) {
     char substring[1000];
